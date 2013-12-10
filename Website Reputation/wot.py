@@ -7,19 +7,20 @@ import sys
 import simplejson
 import argparse
 
-WOT_API_KEY = "YOUR_OWN_API_KEY!!!"
+WOT_API_KEY = "e7e46d5abbd6151720d7afc5606eaf9d71b24728"
+parser = argparse.ArgumentParser(description='Script for returning WoT score for a bunch of domains')
 
 def init():
-	parser = argparse.ArgumentParser(
-		description='Script for returning WoT score for a bunch of domains')
 	"""
 		Examples of domains in file:
 			example.com 		[OK]
 			http://example.com 	[KO]
 	"""
 
-	parser.add_argument("file", nargs=1, metavar='filename',
+	parser.add_argument('-f', dest="file",nargs=1, metavar='filename',
 		help='File with the domains\' list.')
+	parser.add_argument("domain", nargs='?', metavar='domainname',
+               help='Domain to analyze')
 
 	args = parser.parse_args()
 	return args
@@ -129,7 +130,11 @@ def main():
 		except Exception, e:
 			print('%s', e)
 			quit(1)
-
+	elif args.domain:
+		domains = str(args.domain) +'/'
+	else:
+		parser.print_help()
+		quit(1)
 	response = requests.get(
 		"http://api.mywot.com/0.4/public_link_json2",
 		params={"hosts":domains,"key":WOT_API_KEY}
