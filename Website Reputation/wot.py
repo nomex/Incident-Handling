@@ -7,7 +7,7 @@ import sys
 import simplejson
 import argparse
 
-WOT_API_KEY = "e7e46d5abbd6151720d7afc5606eaf9d71b24728"
+WOT_API_KEY = "API KEY"
 parser = argparse.ArgumentParser(description='Script for returning WoT score for a bunch of domains')
 
 def init():
